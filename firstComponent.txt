@@ -1,0 +1,52 @@
+*firstComponent.html
+
+<template>
+    <lightning-card title = "First LWC Component">
+    <h1><b><u>My First LWC Component</u></b></h1>
+    <p><b>Company Name</b> = {companyName}</p>
+    <p><b>Employee Name </b>= {employeeName}</p>
+
+    <lightning-button variant = "brand" label = "Call M1" onclick={m1}></lightning-button>
+
+    <br/><br/>
+    <lightning-input type="text" label="Enter any text" onkeyup={m2}></lightning-input>
+    {inputTxt}
+    </lightning-card>
+
+</template>
+
+
+*firstComponent.js
+
+import { LightningElement } from 'lwc';
+
+export default class FirstComponent extends LightningElement {
+    
+    companyName='KSoft Education'
+    employeeName='Pawan'
+
+    
+    inputTxt;
+    
+    m1(){
+        alert('M1 Method Called')
+    }
+
+    m2(event){
+        this.inputTxt=event.target.value
+    }
+    
+}
+
+
+*firstComponent.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
