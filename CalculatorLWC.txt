@@ -1,0 +1,64 @@
+*Calculator.html
+
+<template>
+    <lightning-card title="Calculator LWC">
+        <lightning-input label="Enter Num1" name="num1" onchange={valueNum1}></lightning-input>
+        <lightning-input label="Enter Num2" name="num2" onchange={valueNum2}></lightning-input>
+        <lightning-input label="Result" name="result" read-only="true" value={result}></lightning-input>
+        <lightning-button variant="brand" label="Add" onclick={add}></lightning-button>
+        &nbsp;
+        <lightning-button variant="brand" label="Sub" onclick={sub}></lightning-button>
+        &nbsp;
+        <lightning-button variant="brand" label="Mult" onclick={mul}></lightning-button>
+        &nbsp;
+        <lightning-button variant="brand" label="Div" onclick={div}></lightning-button>
+    </lightning-card>
+</template>
+
+
+*Calculator.js
+
+import { LightningElement, track } from 'lwc';
+
+export default class CalculatorLWC extends LightningElement {
+
+    @track num1;
+    @track num2;
+    @track result;
+
+    valueNum1(event) {
+        this.num1 = event.target.value;
+    }
+    valueNum2(event) {
+        this.num2 = event.target.value;
+    }
+
+    add() {
+        this.result = Number(this.num1) + Number(this.num2);
+    }
+
+    sub() {
+        this.result = Number(this.num1) - Number(this.num2);
+    }
+
+    mul() {
+        this.result = Number(this.num1) * Number(this.num2);
+    }
+
+    div() {
+        this.result = Number(this.num1) / Number(this.num2);
+    }
+}
+
+
+*Calculator.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
