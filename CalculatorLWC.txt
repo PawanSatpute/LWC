@@ -18,13 +18,13 @@
 
 *Calculator.js
 
-import { LightningElement, track } from 'lwc';
+import { LightningElement } from 'lwc';
 
 export default class CalculatorLWC extends LightningElement {
 
-    @track num1;
-    @track num2;
-    @track result;
+    num1;
+    num2;
+    result;
 
     valueNum1(event) {
         this.num1 = event.target.value;
