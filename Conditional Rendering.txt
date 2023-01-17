@@ -1,0 +1,34 @@
+*ConditionalRendering.html
+
+<template>
+    <lightning-card title="Conditional Rendering">
+        <template if:true={showData}>
+            <h1>True part</h1>
+        </template>
+        <template if:false={showData}>
+            <h1>False Part</h1>
+        </template>
+    </lightning-card>
+</template>
+
+
+*ConditionalRendering.js
+
+import { LightningElement } from 'lwc';
+
+export default class ConditionalRendering extends LightningElement {
+    showData=true;
+}
+
+
+*ConditionalRendering.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
