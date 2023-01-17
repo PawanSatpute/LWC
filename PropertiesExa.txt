@@ -1,0 +1,40 @@
+*PropertiesExa.html
+
+<template>
+    <lightning-card>
+        {employee.companyName}
+        <lightning-input type="text" label="Enter Text" onkeyup={m1}></lightning-input>
+    </lightning-card>
+</template>
+
+
+*PropertiesExa.js
+
+import { LightningElement, track } from 'lwc';
+
+export default class PropertiesExa extends LightningElement {
+
+    @track
+    employee={
+        name:'Pawan',
+        age:'27',
+        companyName:'KSoft'
+    }
+
+    m1(event){
+        this.employee.companyName=event.target.value
+    }
+}
+
+
+*PropertiesExa.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
