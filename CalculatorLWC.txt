@@ -2,16 +2,20 @@
 
 <template>
     <lightning-card title="Calculator LWC">
-        <lightning-input label="Enter Num1" name="num1" onchange={valueNum1}></lightning-input>
-        <lightning-input label="Enter Num2" name="num2" onchange={valueNum2}></lightning-input>
-        <lightning-input label="Result" name="result" read-only="true" value={result}></lightning-input>
-        <lightning-button variant="brand" label="Add" onclick={add}></lightning-button>
-        &nbsp;
-        <lightning-button variant="brand" label="Sub" onclick={sub}></lightning-button>
-        &nbsp;
-        <lightning-button variant="brand" label="Mult" onclick={mul}></lightning-button>
-        &nbsp;
-        <lightning-button variant="brand" label="Div" onclick={div}></lightning-button>
+        <lightning-button label="Show Calculator" variant="brand" onclick={m1}></lightning-button>
+        <template if:true={showCal}>
+        	<lightning-input label="Enter Num1" name="num1" onchange={valueNum1}></lightning-input>
+        	<lightning-input label="Enter Num2" name="num2" onchange={valueNum2}></lightning-input>
+        	<lightning-input label="Result" name="result" read-only="true" value={result}></lightning-input>
+        	<lightning-button variant="brand" label="Add" onclick={add}></lightning-button>
+        	&nbsp;
+        	<lightning-button variant="brand" label="Sub" onclick={sub}></lightning-button>
+        	&nbsp;
+        	<lightning-button variant="brand" label="Mult" onclick={mul}></lightning-button>
+        	&nbsp;
+        	<lightning-button variant="brand" label="Div" onclick={div}></lightning-button><br/><br/>
+            <lightning-button variant="destructive" label="Hide Calculator" onclick={m2}></lightning-button>
+    </template>
     </lightning-card>
 </template>
 
@@ -47,6 +51,15 @@ export default class CalculatorLWC extends LightningElement {
 
     div() {
         this.result = Number(this.num1) / Number(this.num2);
+    };
+
+    showCal;
+    m1(){
+        this.showCal= true;
+    };
+
+    m2(){
+        this.showCal= false;
     }
 }
 
