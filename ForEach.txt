@@ -1,0 +1,34 @@
+*ForEach.html
+
+<template>
+    <lightning-card title="For Each">
+        <h1><b><u>Student Data</u></b></h1><br/>
+        <template for:each={studentData} for:item="stu">
+            <div key={stu}>
+                <p>{stu}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>
+
+
+*ForEach.js
+
+import { LightningElement } from 'lwc';
+
+export default class ForEach extends LightningElement {
+    studentData=['Pawan', 'Rishabh', 'Tushar', 'Pratiksha']
+}
+
+
+*ForEach.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
