@@ -1,0 +1,43 @@
+//21. Write a Trigger to find the number of Active Students in “Number of Active Students” Fields
+//when any Student record is created, updated, deleted or undeleted.
+
+*Class
+
+public class StudentTriggerScenariosQ21 {
+    public static void countActive(List<Student__c> studentsNew, List<Student__c> studentsOld){
+        Set<Id> courseIds = new Set<Id>();
+        if(StudentsNew != null){
+            for(Student__c stu : studentsNew){
+                courseIds.add(stu.Course__c);
+            }
+        }
+        if(StudentsOld != null){
+            for(Student__c stu : studentsOld){
+                courseIds.add(stu.Course__c);
+            }
+        }
+        List<Course__c> courseList = [SELECT Id, Number_of_Active_Students__c, (SELECT Id, Active__c FROM Students__r) FROM Course__c WHERE Id in : courseIds];
+        for(Course__c cou : courseList){
+            Integer count = 0;
+            for(Student__c stu : cou.Students__r){
+                if(stu.Active__c == true){
+                    count++;
+                }
+            }
+            cou.Number_of_Active_Students__c = count;
+        }
+        update courseList;
+    }
+}
+
+
+*Trigger
+
+trigger StudentTriggerHW on Student__c (before insert, after insert, before update, after update, before delete, after delete, after undelete) {
+    
+    //Q21.
+    if(trigger.isAfter && (trigger.isInsert || trigger.isUpdate || trigger.isDelete || trigger.isUndelete)){
+        StudentTriggerScenariosQ21.countActive(trigger.new, trigger.old);
+    }
+}
+
