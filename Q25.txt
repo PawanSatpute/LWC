@@ -1,0 +1,32 @@
+//25. Prevent the deletion of Account record if there is any one child record present for that Account.
+
+*Class
+
+public class AccountTriggerScenariosQ25 {
+    public static void preventDeleteAccWithChild (List<Account> accList, Map<Id, Account> accMap){
+		Set<Id> accIds = accMap.keySet();
+        List<Contact> contactList = [SELECT Id, AccountId FROM Contact WHERE AccountId in : accIds];
+        Map<Id, Contact> contactMap = new Map<Id, Contact>();
+        
+        for(Contact con : contactList){
+            if(con.AccountId != null){
+                contactMap.put(con.AccountId, con);
+            }
+        }
+        
+        for(Account acc : accList){
+            if(contactMap.containsKey(acc.Id)){
+                acc.addError('We are not able to delete Account having child Contact.');
+            }
+        }
+    }
+}
+
+*Trigger
+
+trigger AccountTriggerHW on Account (before insert, after insert, before update, after update, before delete, after delete, after undelete) {
+    //Q25.
+    if(trigger.isBefore && trigger.isDelete){
+        AccountTriggerScenariosQ25.preventDeleteAccWithChild(trigger.old, trigger.oldMap);
+    }
+}
