@@ -1,0 +1,29 @@
+//22. Write a trigger on lead to prevent duplicate records based on lead email
+//Whenever the records is inserted/updated/deleted/undeleted
+
+*Class
+
+public class LeadTriggerScenariosQ22 {
+    public static void preventDiplicateEmail(List<Lead> leads){
+        Set<String> strSet = new Set<String>();
+        List<Lead> ldList = new List<Lead>();
+        List<Lead> leadList = [SELECT Id, Email FROM Lead WHERE Email != null];
+        for(Lead ld : leadList){
+            strSet.add(ld.Email);
+        }
+        for(lead ld2 : leads){
+            if(strSet.contains(ld2.Email)){
+                ld2.addError('Duplicate Emails are not allowed.');
+            }
+        }
+    }
+}
+
+*Trigger
+
+trigger LeadTriggerHW on Lead (before insert, after insert, before update, after update, before delete, after delete, after undelete) {
+    //Q22.
+    if((trigger.isBefore && (trigger.isInsert || trigger.isUpdate)) || (trigger.isAfter && (trigger.isDelete || trigger.isUndelete))){
+        LeadTriggerScenariosQ22.preventDiplicateEmail(trigger.new);
+    }
+}
