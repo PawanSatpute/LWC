@@ -1,0 +1,50 @@
+* LightningRecordEditForm.html
+
+<template>
+    <lightning-card title="Lightning Record Edit Form">
+        <lightning-record-edit-form
+        object-api-name={objectApiName}
+        record-id={recordId}
+        >
+        <lightning-input-field field-name="Name"></lightning-input-field>
+        <lightning-input-field field-name={industry}></lightning-input-field>
+        <lightning-input-field field-name={phone}></lightning-input-field>
+        <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+        &nbsp;
+        <lightning-button variant="brand-outline" label="Cancel" onclick={handleReset}></lightning-button>
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>
+
+
+* LightningRecordEditForm.js
+
+import { api, LightningElement } from 'lwc';
+import INDUSTRY from '@salesforce/schema/Account.Industry';
+import PHONE from '@salesforce/schema/Account.Phone';
+export default class LightningRecordEditForm extends LightningElement {
+    @api recordId
+    @api objectApiName
+
+    industry= INDUSTRY
+    phone = PHONE
+
+    handleReset(event){
+        const inputFields = this.template.querySelectorAll('lightning-input-field')
+        if(inputFields)(
+            inputFields.forEach(field=>{field.reset()})
+        )
+    }
+}
+
+
+* LightningRecordEditForm.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
