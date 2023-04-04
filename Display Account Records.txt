@@ -1,0 +1,43 @@
+* DisplayAccountRecords.html
+
+<template>
+    <lightning-card title="Wire a Property">
+        <lightning-button label="Show Accounts" variant="brand" onclick={m1}></lightning-button><br/>
+        <template if:true={showAcc}>
+            <template for:each={accountRecords.data} for:item="acc">
+                <div key={acc.id}>
+                    <p>Account Name = {acc.Name} </p>
+                    <p>Account Phone = {acc.Phone} </p><br/>
+                </div>
+            </template>
+        </template>
+    </lightning-card>
+</template>
+
+
+* DisplayAccountRecords.js
+
+import { LightningElement, wire } from 'lwc';
+import getAccount from '@salesforce/apex/DisplayAccountRecordsController.getAccount'
+export default class DisplayAccountRecord extends LightningElement {
+    @wire(getAccount)
+    accountRecords;
+
+    showAcc;
+    m1(){
+        this.showAcc= true;
+    };
+}
+
+
+* DisplayAccountRecords.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+    </targets>
+</LightningComponentBundle>
+
