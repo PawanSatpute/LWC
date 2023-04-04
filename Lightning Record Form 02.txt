@@ -1,0 +1,56 @@
+* LightningRecordForm02,html
+
+<template>
+    <lightning-card title="Record Details">
+        <p>Record Id = {recordId}</p>
+        <p>Object Name = {objectApiName}</p>
+    </lightning-card>
+
+    <lightning-card title="Lightning Record Form">
+        <lightning-record-form
+        record-id={recordId}
+        object-api-name={objectApiName}
+        fields={field}
+        columns="1"
+        mode="readOnly"
+        onsuccess={m1}
+        >
+        </lightning-record-form>
+    </lightning-card>
+</template>
+
+
+* LightningRecordForm02.js
+
+import { api, LightningElement } from 'lwc';
+import ACCOUNT from '@salesforce/schema/Account';
+import NAME from '@salesforce/schema/Account.Name';
+import ANNUALREVENUE from '@salesforce/schema/Account.AnnualRevenue';
+import INDUSTRY from '@salesforce/schema/Account.Industry';
+import PHONE from '@salesforce/schema/Account.Phone';
+import RATING from '@salesforce/schema/Account.Rating';
+import TYPE from '@salesforce/schema/Account.Type';
+export default class LightningRecordForm02 extends LightningElement {
+    objectName=ACCOUNT
+    field=[NAME, PHONE, INDUSTRY, TYPE, ANNUALREVENUE, RATING]
+
+    @api recordId
+    @api objectApiName
+
+    m1(){
+        alert('Record Created')
+    }
+}
+
+
+* LightningRecordForm02.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+    </targets>
+</LightningComponentBundle>
