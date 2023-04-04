@@ -1,0 +1,47 @@
+* LightningRecordForm01.html
+
+<template>
+    <lightning-card title="Lightning Record Form">
+        <lightning-record-form
+        object-api-name={objectName}
+        fields={field}
+        mode="edit"
+        columns="2"
+        onsuccess={m1}
+        >
+
+        </lightning-record-form>
+    </lightning-card>
+</template>
+
+
+* LightningRecordForm01.js
+
+import { LightningElement } from 'lwc';
+import ACCOUNT from '@salesforce/schema/Account'
+import NAME from '@salesforce/schema/Account.Name'
+import ANNUALREVENUE from '@salesforce/schema/Account.AnnualRevenue'
+import PHONE from '@salesforce/schema/Account.Phone';
+import INDUSTRY from '@salesforce/schema/Account.Industry';
+import RATING from '@salesforce/schema/Account.Rating';
+import TYPE from '@salesforce/schema/Account.Type';
+export default class LightningRecordForm01 extends LightningElement {
+    objectName = ACCOUNT;
+    field = [NAME, PHONE, INDUSTRY, ANNUALREVENUE, RATING, TYPE]
+
+    m1(){
+        alert('Record Created')
+    }
+}
+
+
+* LightningRecordForm01.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+    </targets>
+</LightningComponentBundle>
