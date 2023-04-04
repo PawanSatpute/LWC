@@ -1,0 +1,52 @@
+* ImperativeExa.html
+
+<template>
+    <lightning-card title="Imperative Method">
+        <lightning-input type="text" label="Enter Text" onchange={getAccName} ></lightning-input>
+        <lightning-button label="Search Accounts" variant="Brand" onclick={getAccountRecords} ></lightning-button>
+        <template for:each={accountData} for:item="acc">
+            <div key={acc.id}>
+                <p>Account Name = {acc.Name}</p>
+                <p>Account Phone = {acc.Phone}</p>
+                <p>Account Industry = {acc.Industry}</p><br/>
+            </div>
+        </template>
+    </lightning-card>
+</template>
+
+
+* ImperativeExa.js
+
+import { LightningElement, track } from 'lwc';
+import getAcc from '@salesforce/apex/ImperativeExaController.getAccount'
+export default class ImperativeExa extends LightningElement {
+    @track accountData
+    @track errors
+    accountName
+
+    getAccountRecords(){
+        getAcc({accName : this.accountName})
+        .then(data => {
+            this.accountData = data
+        })
+        .catch(error => {
+            this.errors = error
+        })
+    }
+
+    getAccName (event){
+        this.accountName = event.target.value;
+    }
+}
+
+
+* ImperativeExa.js-meta.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+    </targets>
+</LightningComponentBundle>
